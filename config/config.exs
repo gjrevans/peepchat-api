@@ -14,8 +14,7 @@ config :peepchat, Peepchat.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "yX9AMAiJZp0I90l8V80MOc9eIWDIJFjos0262RjAXILVkITzUumoCwUn6UmjZ+kd",
   render_errors: [view: Peepchat.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Peepchat.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Peepchat.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -29,6 +28,16 @@ config :phoenix, :format_encoders,
 config :mime, :types, %{
   "application/vnd.api+json" => ["json-api"]
 }
+
+# Configure Gaurdian
+config :guardian, Guardian,
+  allowed_algos: ["HS512"], # optional
+  verify_module: Guardian.JWT,  # optional
+  issuer: "Peepchat",
+  ttl: { 30, :days },
+  verify_issuer: true, # optional
+  secret_key: System.get_env("GUARDIAN_SECRET") || "t255JiDyg7P8Ktjq1unY80HqceoNOPw44MNzQusn2f3LwaCFeVZWxrdkh6k9Tdy+",
+  serializer: Peepchat.GuardianSerializer
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

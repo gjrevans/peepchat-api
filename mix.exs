@@ -17,7 +17,7 @@ defmodule Peepchat.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Peepchat, []},
-     extra_applications: [:logger]]
+     extra_applications: [:logger, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -28,13 +28,16 @@ defmodule Peepchat.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.3.0-rc"},
+    [{:phoenix, "~> 1.3.0-rc", override: true},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:cors_plug, "~> 1.1"}]
+     {:ja_serializer, "~> 0.12.0"},
+     {:comeonin, "~> 2.4"},
+     {:cors_plug, "~> 1.1"},
+     {:guardian, "~> 0.14.4"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
